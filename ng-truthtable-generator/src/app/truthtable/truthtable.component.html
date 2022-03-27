@@ -1,0 +1,25 @@
+<div class ="center">
+  <p>Use any single letters, implies is denoted by '->'</p>
+  <p>AND and OR is denoted by && and || respectively</p>
+  <p>Remember parenthesis for && and || for correct result</p>
+  <p>Examplse statement: n&&(!o||(p&&q))->r</p>
+  <input type=text (keyup)="onKey($event)">
+  <br>
+  {{output}}
+  <br>
+  <input type=text (keyup)="onTest($event)">
+  <br>
+  {{test}}
+
+<table class="table table-bordered" *ngIf="table.rows!.length > 0">
+    <th *ngFor="let col of table?.rows![0].columns">{{col.name}}</th>
+<tbody>
+  <tr *ngFor="let row of table.rows">
+    <td *ngFor="let col of row.columns">{{col.value}}</td>
+  </tr>
+
+</tbody>
+</table>
+
+
+</div>
