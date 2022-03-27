@@ -9,15 +9,4 @@ services:
       context: ./ng-truthtable-generator
       dockerfile: Dockerfile
     ports:
-      - 80:80
-      - 443:443
-
-  api:
-    container_name: 'truthtable-backend'
-    hostname: truthtable-backend
-    build: 
-      context: ./TruthTableAPI
-      dockerfile: Dockerfile
-    restart: always
-    environment:
-      - TWITTER=${TWITTER}
+      - 80

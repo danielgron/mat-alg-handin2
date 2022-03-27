@@ -30,6 +30,8 @@ export class TruthtableComponent implements OnInit {
     this.test = String(this.solve(event.target.value));
   }
 
+
+  // Method that is called whenever a key has been pressed
   onKey(event: any) {
     this.output = event.target.value;
 
@@ -38,10 +40,15 @@ export class TruthtableComponent implements OnInit {
 
     // Create table
     var rows: TruthtableRow[] = [];
+
+    // Find out how many unique parameters there are
     let unique = this.output
       .split('')
       .filter((item, i, ar) => ar.indexOf(item) === i);
     unique = unique.filter((item, i, arr) => item.match(/[a-zAZ]/));
+
+
+    // The amount of rows need will be 2 to the power of the number of parameters
 
     var totalrows = Math.floor(2 ** unique.length);
 
@@ -65,6 +72,8 @@ export class TruthtableComponent implements OnInit {
       return;
     }
 
+
+    // Generate rows and columns with all combinations of true/false parameters
     var currentGap = totalrows;
     var bools: boolean[] = unique.map((u) => false);
     var gaps: number[] = unique.map((u) => (currentGap /= 2) | 0);
@@ -89,11 +98,13 @@ export class TruthtableComponent implements OnInit {
         r.columns?.push(column);
       }
 
+      // Get the value of statements on the left and right hand side
       var convertedLhs = this.convert(left, r);
       var reducedLhs = this.solve(convertedLhs);
       var convertedRhs = this.convert(right, r);
       var reducedRhs = this.solve(convertedRhs);
 
+      // Create column with the result for the statement given
       var column = new TruthtableColumn(
         this.output,
         this.getResult(reducedLhs, reducedRhs)
@@ -104,6 +115,8 @@ export class TruthtableComponent implements OnInit {
 
       rows.push(r);
     }
+
+    // Update the UI with the result
 
     this.table = new Truthtable();
     this.table.rows = rows;
@@ -123,7 +136,7 @@ export class TruthtableComponent implements OnInit {
 
   // Convert from statement in letter form to true/false values from a row of the table
   convert(toConvert: string, row: TruthtableRow) {
-    //Wrap the
+    //Wrap the inputs in {} to prevent errors when substituting with true/false
     toConvert = toConvert.replaceAll(
       /[a-zA-Z]/gi,
       (match) => '{' + match + '}'
@@ -147,7 +160,7 @@ export class TruthtableComponent implements OnInit {
   The order of operations is as follows:
   Resolve all parenthesis starting with the deepest nested first.
   Resolve &&
-  Resolve || 
+  Resolve ||
   Resolve true/false
   */
 
