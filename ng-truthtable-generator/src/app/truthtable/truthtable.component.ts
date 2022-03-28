@@ -143,7 +143,7 @@ export class TruthtableComponent implements OnInit {
     );
 
     row.columns!.forEach((element) => {
-      toConvert = toConvert.replace(
+      toConvert = toConvert.replaceAll(
         '{' + element.name + '}',
         String(element.value)
       );
